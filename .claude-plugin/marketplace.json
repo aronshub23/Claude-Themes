@@ -1,11 +1,18 @@
 {
   "name": "claude-themes",
-  "owner": { "name": "aronshub23" },
+  "owner": {
+    "name": "aronshub23"
+  },
   "plugins": [
     {
       "name": "neon-circuit",
       "source": "./neon-circuit",
       "description": "Cyberpunk look: a live circuit-board backdrop in neon purple and green, with hard blue and red."
+    },
+    {
+      "name": "turbine-hall",
+      "source": "./turbine-hall",
+      "description": "Industrial gas-turbine look: slow-turning compressor and turbine rotors, a blueprint cutaway, brushed steel and combustor orange."
     }
   ]
 }
