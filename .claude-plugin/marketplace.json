@@ -1,0 +1,11 @@
+{
+  "name": "claude-themes",
+  "owner": { "name": "aronshub23" },
+  "plugins": [
+    {
+      "name": "neon-circuit",
+      "source": "./neon-circuit",
+      "description": "Cyberpunk look: a live circuit-board backdrop in neon purple and green, with hard blue and red."
+    }
+  ]
+}
