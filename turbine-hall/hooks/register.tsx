@@ -3,39 +3,40 @@ import type { Register, ThemeMessageRule, ThemeSetArgs, ThemeSound, ThemeStyle }
 import { makeColors } from './make-colors.js'
 import { SCENE } from './scene.js'
 
-// Brushed steel by day, graphite turbine hall by night; combustor orange
-// as the accent, blued titanium for literals.
+// Red, white and charcoal: near-white steel by day, charcoal by night, a
+// strong red as the accent; neutral grays with no blue cast. Errors take a
+// deeper crimson so they stay apart from the accent.
 const { theme, problems } = makeColors({
   label: 'Turbine Hall',
   roles: {
-    accent: '#e8701e',
-    danger: '#d23a2c',
-    success: '#3f9a62',
-    warning: '#d4a317',
-    pro: '#4f7fc4',
+    accent: '#e60012',
+    danger: '#a8102f',
+    success: '#2e8b57',
+    warning: '#d99a00',
+    pro: '#3e6d9c',
   },
   light: {
     gray: {
       anchors: {
-        'surface-0': '#e8ebee',
-        'surface-1': '#eff1f3',
-        'surface-2': '#f8f9fa',
-        'text-primary': '#15191d',
-        'text-secondary': '#3c444c',
-        'text-muted': '#56606a',
+        'surface-0': '#eeeff0',
+        'surface-1': '#f5f5f6',
+        'surface-2': '#fbfbfc',
+        'text-primary': '#16171a',
+        'text-secondary': '#3d4045',
+        'text-muted': '#5a5e64',
       },
     },
   },
   dark: {
     gray: {
       anchors: {
-        'surface-0': '#0f1215',
-        'surface-1': '#151a1e',
-        'surface-2': '#1b2025',
-        'surface-3': '#20262c',
-        'text-primary': '#edf1f4',
-        'text-secondary': '#c3cbd2',
-        'text-muted': '#9aa4ae',
+        'surface-0': '#111213',
+        'surface-1': '#17181a',
+        'surface-2': '#1d1e21',
+        'surface-3': '#222427',
+        'text-primary': '#f1f1f2',
+        'text-secondary': '#c8cacd',
+        'text-muted': '#9ea1a6',
       },
     },
   },
@@ -49,7 +50,7 @@ const RIVETS = [
 ] as const
 const rivet = ([x, y]: readonly [number, number]) => `M${x - 1.6} ${y}a1.6 1.6 0 1 0 3.2 0a1.6 1.6 0 1 0 -3.2 0Z`
 
-// A riveted steel nameplate, with an orange heat stripe down its left edge.
+// A riveted steel nameplate, with a red stripe down its left edge.
 const plate: ThemeMessageRule['fill'] = {
   vector: {
     viewBox: 48,

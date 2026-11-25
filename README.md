@@ -7,7 +7,7 @@ Looks for the Claude desktop and mobile apps, each one a Claude Code plugin. Ins
 | Theme | What it looks like |
 | --- | --- |
 | `neon-circuit` | Cyberpunk. A live circuit-board backdrop with slow pulses of light along its traces; neon purple and green with hard blue and red; chamfered neon message panels; a quiet electrical hum and synth cues (turn sound on with the speaker in the session's title bar). Dark mode only. |
-| `turbine-hall` | Industrial. Inspired by aeroderivative power turbines such as the FT8: a compressor rotor and a hotter turbine stage turning slowly, beside a blueprint cutaway of the engine; brushed steel by day, graphite by night, combustor orange as the accent; riveted nameplate message panels; a turbine-hall hum with spool-up and spool-down cues. Light and dark mode. Unofficial, and not affiliated with any manufacturer. |
+| `turbine-hall` | Industrial, in a red, white and charcoal palette inspired by Mitsubishi Power and aeroderivative power turbines such as the FT8. A compressor rotor and a red-hot turbine stage turn on a drafting grid, the turbine shedding embers; a blueprint cutaway of the engine has air streaming through it, a flickering combustor and heat shimmer over the exhaust; two gauges drift as if the engine were running. Near-white steel by day, charcoal by night; riveted nameplate message panels with a red stripe; a turbine-hall hum with spool-up and spool-down cues. Light and dark mode. Unofficial, and not affiliated with any manufacturer: it uses no logo, name or lettering of theirs. |
 
 ## Install
 
