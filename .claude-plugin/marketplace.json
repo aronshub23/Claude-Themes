@@ -5,6 +5,11 @@
   },
   "plugins": [
     {
+      "name": "theme-switcher",
+      "source": "./theme-switcher",
+      "description": "Every look in one plugin, switched with /look: Neon Circuit (cyberpunk) and Turbine Hall (industrial gas turbine)."
+    },
+    {
       "name": "neon-circuit",
       "source": "./neon-circuit",
       "description": "Cyberpunk look: a live circuit-board backdrop in neon purple and green, with hard blue and red."
@@ -14,5 +19,6 @@
       "source": "./turbine-hall",
       "description": "Industrial gas-turbine look in red, white and charcoal: turning compressor and turbine rotors, a live blueprint cutaway with airflow and flame, embers and gauges."
     }
-  ]
+  ],
+  "description": "Animated looks for Claude's desktop and mobile apps."
 }

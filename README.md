@@ -1,6 +1,15 @@
 # Claude Themes
 
-Looks for the Claude desktop and mobile apps, each one a Claude Code plugin. Install one on any computer and it themes every session from then on.
+Animated looks for Claude's desktop and mobile apps, each one a Claude Code plugin. Install one on any computer and it themes every session from then on.
+
+**Easiest:** install `theme-switcher`, which holds every look here and switches between them with `/look`. See [theme-switcher/README.md](theme-switcher/README.md).
+
+```
+claude plugin marketplace add aronshub23/claude-themes
+claude plugin install theme-switcher@claude-themes
+```
+
+The single-theme plugins below are still here for anyone who wants just one; don't turn one on beside `theme-switcher`.
 
 ## Themes
 
