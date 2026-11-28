@@ -14,20 +14,20 @@ import {
 } from './studio.js'
 import type { LookSpec } from './studio.js'
 
-const PLUGIN = 'theme-switcher'
+const PLUGIN = 'look-studio'
 // The look each person picked, kept across sessions: a look's id, or 'off'.
 const CHOICE = 'look'
 const OFF = 'off'
-const SKILL = 'theme-switcher:create-look'
+const SKILL = 'look-studio:create-look'
 
 // What /look new hands Claude: the person's idea and the skill to follow.
 export function guidePrompt(idea: string): string {
   const said = idea.trim() === '' ? '' : ` My idea: ${idea.trim()}`
-  return `I want to design my own Claude look with theme-switcher.${said} Use the ${SKILL} skill to guide me through it.`
+  return `I want to design my own Claude look with look-studio.${said} Use the ${SKILL} skill to guide me through it.`
 }
 
 // The look being previewed this session (see types/index.d.ts).
-const previewing = { plugin: 'theme-switcher', key: 'preview' } as const
+const previewing = { plugin: 'look-studio', key: 'preview' } as const
 
 // Scenes by backdrop name, filled as looks are put on; a reload empties it
 // and the Backdrop hook refills it from the store.
@@ -284,7 +284,7 @@ export const register: Register = on => {
       if (verb === 'export') {
         const spec = await $.store.get(CUSTOM_PREFIX + look.id)
         return text(
-          `${look.name}, as JSON. Send it to anyone with theme-switcher: they paste it to Claude and ask to save the look.\n\n${JSON.stringify(spec)}`,
+          `${look.name}, as JSON. Send it to anyone with look-studio: they paste it to Claude and ask to save the look.\n\n${JSON.stringify(spec)}`,
         )
       }
       await $.store.delete(CUSTOM_PREFIX + look.id)
@@ -308,7 +308,7 @@ export const register: Register = on => {
   // ---- the tools the model calls while designing ----
 
   // Each answers what went wrong as the call's error, never by throwing.
-  on('tool.run', { tool: 'mcp__theme-switcher__look_preview' }, async ($, e) => {
+  on('tool.run', { tool: 'mcp__look-studio__look_preview' }, async ($, e) => {
     try {
       return { result: await checkAndPutOn($, e['look'], false) }
     } catch (error) {
@@ -316,7 +316,7 @@ export const register: Register = on => {
     }
   })
 
-  on('tool.run', { tool: 'mcp__theme-switcher__look_save' }, async ($, e) => {
+  on('tool.run', { tool: 'mcp__look-studio__look_save' }, async ($, e) => {
     try {
       return { result: await checkAndPutOn($, e['look'], true) }
     } catch (error) {
@@ -324,7 +324,7 @@ export const register: Register = on => {
     }
   })
 
-  on('tool.run', { tool: 'mcp__theme-switcher__look_get' }, async ($, e) => {
+  on('tool.run', { tool: 'mcp__look-studio__look_get' }, async ($, e) => {
     try {
       const id = norm(String(e['id'] ?? ''))
       if (LOOKS.some(look => look.id === id)) {
@@ -337,7 +337,7 @@ export const register: Register = on => {
     }
   })
 
-  on('tool.run', { tool: 'mcp__theme-switcher__look_use' }, async ($, e) => {
+  on('tool.run', { tool: 'mcp__look-studio__look_use' }, async ($, e) => {
     try {
       const query = String(e['id'] ?? '')
       await $.state.set(previewing, '')
@@ -358,7 +358,7 @@ export const register: Register = on => {
     }
   })
 
-  on('tool.run', { tool: 'mcp__theme-switcher__look_list' }, async $ => {
+  on('tool.run', { tool: 'mcp__look-studio__look_list' }, async $ => {
     try {
       const { builtIn, mine } = await allLooks($)
       return { result: listText(builtIn, mine, await chosen($)) }

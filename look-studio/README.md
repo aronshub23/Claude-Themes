@@ -1,14 +1,17 @@
-# Theme Switcher: a look studio for Claude
+# Look Studio: design your own Claude looks
 
 Design your own animated theme for Claude's desktop and mobile apps, with Claude as your designer. Describe a mood, a place or an era; Claude proposes colors, an animated backdrop, message styles and sound, puts it on live so you can see it, and refines it with you until you save it. Switch between your looks and the built-in ones with `/look`, and share yours as a snippet anyone with the plugin can import.
 
 ## Install
 
+Formerly `theme-switcher`. If you have that installed, first run `/look export <name>` for each look you made and keep the JSON, then uninstall it (`claude plugin uninstall theme-switcher`), install look-studio below, and paste each JSON to Claude to save it again: the two plugins don't share storage.
+
+
 In a terminal (the desktop app can't add a marketplace itself):
 
 ```
 claude plugin marketplace add aronshub23/claude-themes
-claude plugin install theme-switcher@claude-themes
+claude plugin install look-studio@claude-themes
 ```
 
 Choose the user scope, restart the Claude desktop app, and open a local session in its Code tab.
@@ -43,7 +46,7 @@ Every look is checked before it goes on: contrast that would stop the app painti
 | `/look export <name>` | get your look as JSON to share |
 | `/look delete <name>` | delete one of your looks |
 
-To share, send the JSON from `/look export`. Your friend, with theme-switcher installed, pastes it to Claude and asks to save the look. To change a look, ask Claude to edit it ("make Midnight Garden warmer").
+To share, send the JSON from `/look export`. Your friend, with look-studio installed, pastes it to Claude and asks to save the look. To change a look, ask Claude to edit it ("make Midnight Garden warmer").
 
 ## Built-in looks
 

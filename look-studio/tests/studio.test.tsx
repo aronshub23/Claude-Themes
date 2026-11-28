@@ -33,7 +33,7 @@ const GARDEN = {
 }
 
 const call = (name: string, args: Record<string, unknown>) =>
-  ({ tool: `mcp__theme-switcher__${name}`, tool_use_id: `t-${name}`, ...args }) as const
+  ({ tool: `mcp__look-studio__${name}`, tool_use_id: `t-${name}`, ...args }) as const
 
 const resultOf = (out: unknown) => String((out as { result?: unknown }).result ?? '')
 
@@ -104,10 +104,10 @@ test('/look switches to a saved look by the start of its name', async ($, on) =>
 test('the backdrop draws a saved look\'s scene', async ($, on) => {
   engine(on, { 'custom:midnight-garden': GARDEN })
   const ui = await $.ui.mount({
-    plugin: 'theme-switcher',
+    plugin: 'look-studio',
     component: 'Backdrop',
     surface: 'mobile',
-    props: { scene: 'custom-midnight-garden', plugin: 'theme-switcher', glass: { blur: 12, opacity: 0.7 } },
+    props: { scene: 'custom-midnight-garden', plugin: 'look-studio', glass: { blur: 12, opacity: 0.7 } },
   })
   expect(await ui.find({ type: 'Svg' })).toBeTruthy()
   await ui.unmount()
@@ -122,13 +122,13 @@ test('/look new answers at once and submits the guide prompt once it has', async
   await clock.advance(100)
   expect(seen.logs.join('')).toBe('')
   expect(seen.prompts.join('\n')).toContain('My idea: a rainy Tokyo alley at night')
-  expect(seen.prompts.join('\n')).toContain('theme-switcher:create-look')
+  expect(seen.prompts.join('\n')).toContain('look-studio:create-look')
 })
 
 test('the guide prompt carries the idea and names the skill', () => {
   expect(guidePrompt('a rainy Tokyo alley at night')).toContain('My idea: a rainy Tokyo alley at night')
   expect(guidePrompt('')).not.toContain('My idea')
-  expect(guidePrompt('')).toContain('theme-switcher:create-look')
+  expect(guidePrompt('')).toContain('look-studio:create-look')
 })
 
 test('a preview survives a reload of the plugin, and /look ends it', async ($, on) => {

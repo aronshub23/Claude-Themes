@@ -52,14 +52,14 @@ test('an unknown name says so and lists the looks', async ($, on) => {
 test('the backdrop draws each look\'s scene, and leaves other plugins\' alone', async $ => {
   for (const scene of ['circuit', 'turbine-hall']) {
     const ui = await $.ui.mount({
-      plugin: 'theme-switcher', component: 'Backdrop', surface: 'desktop',
-      props: { scene, plugin: 'theme-switcher', glass: { blur: 10, opacity: 0.7 } },
+      plugin: 'look-studio', component: 'Backdrop', surface: 'desktop',
+      props: { scene, plugin: 'look-studio', glass: { blur: 10, opacity: 0.7 } },
     })
     expect(await ui.find({ type: 'Svg' })).toBeTruthy()
     await ui.unmount()
   }
   const other = await $.ui.mount({
-    plugin: 'theme-switcher', component: 'Backdrop', surface: 'desktop',
+    plugin: 'look-studio', component: 'Backdrop', surface: 'desktop',
     props: { scene: 'circuit', plugin: 'someone-else', glass: false },
   })
   expect(await other.find({ type: 'Svg' })).toBeFalsy()

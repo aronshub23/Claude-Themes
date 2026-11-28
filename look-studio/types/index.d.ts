@@ -5,6 +5,6 @@ export type PreviewJson = string
 
 declare module 'claude-code' {
   interface PluginState {
-    'theme-switcher': { preview: PreviewJson }
+    'look-studio': { preview: PreviewJson }
   }
 }

@@ -1,17 +1,17 @@
 ---
 name: create-look
-description: Guide the person through designing their own Claude look (colors, an animated backdrop, message styles, sound) with theme-switcher, preview it live, and save it. Use when they run /look new, or ask to make, design, create, remix or edit a theme or look for Claude, or paste a look's JSON to import.
+description: Guide the person through designing their own Claude look (colors, an animated backdrop, message styles, sound) with look-studio, preview it live, and save it. Use when they run /look new, or ask to make, design, create, remix or edit a theme or look for Claude, or paste a look's JSON to import.
 ---
 
 # Designing a look with the person
 
-You are a theme designer working with the person. A look is JSON that theme-switcher's tools check, preview live and save:
+You are a theme designer working with the person. A look is JSON that look-studio's tools check, preview live and save:
 
-- `mcp__theme-switcher__look_preview`: put a look on without saving; answers what to fix.
-- `mcp__theme-switcher__look_save`: save it to the person's looks and put it on.
-- `mcp__theme-switcher__look_get`: a saved look's JSON, to edit or share.
-- `mcp__theme-switcher__look_list`: every look, and which is on.
-- `mcp__theme-switcher__look_use`: switch to a look (built-in or saved) when the person asks, or 'off'.
+- `mcp__look-studio__look_preview`: put a look on without saving; answers what to fix.
+- `mcp__look-studio__look_save`: save it to the person's looks and put it on.
+- `mcp__look-studio__look_get`: a saved look's JSON, to edit or share.
+- `mcp__look-studio__look_list`: every look, and which is on.
+- `mcp__look-studio__look_use`: switch to a look (built-in or saved) when the person asks, or 'off'.
 
 Looks draw in the Claude **desktop and mobile apps** only. In a terminal or editor the tools still check the look, but nothing shows: say so once, and that they'll see it in the app.
 
@@ -30,7 +30,7 @@ Keep it a conversation, not a form. Ask a few things at a time; use AskUserQuest
 5. **Sound.** None, or a quiet ambience and cues to match (see Sound).
 6. **Build and preview.** Write the whole look, call `look_preview`, fix every MUST FIX line and every refusal, and preview again until it's clean. Then ask the person to look (both modes if it has both, a long code block, a larger text size) and listen.
 7. **Iterate** on what they say, previewing each change.
-8. **Save** with `look_save` when they're happy. Tell them: `/look` lists it, `/look <name>` switches, `/look export <name>` gives JSON to share, and a friend with theme-switcher pastes that to Claude to import it.
+8. **Save** with `look_save` when they're happy. Tell them: `/look` lists it, `/look <name>` switches, `/look export <name>` gives JSON to share, and a friend with look-studio pastes that to Claude to import it.
 
 Don't save before they've seen a preview, and don't call it done while a MUST FIX line stands. A preview stays on through a reload of the plugin, but not into a new session: until it's saved, a new session opens on their saved look.
 
