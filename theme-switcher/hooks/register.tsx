@@ -26,6 +26,9 @@ export function guidePrompt(idea: string): string {
   return `I want to design my own Claude look with theme-switcher.${said} Use the ${SKILL} skill to guide me through it.`
 }
 
+// The look being previewed this session (see types/index.d.ts).
+const previewing = { plugin: 'theme-switcher', key: 'preview' } as const
+
 // Scenes by backdrop name, filled as looks are put on; a reload empties it
 // and the Backdrop hook refills it from the store.
 const scenes = new Map<string, string>()
@@ -66,6 +69,20 @@ async function chosen($: EngineInterface): Promise<Look | typeof OFF> {
     }
   }
   return LOOKS[0]!
+}
+
+// The look previewed earlier in this session, if any and it still checks.
+async function previewLook($: EngineInterface): Promise<Look | undefined> {
+  const { value } = await $.state.get(previewing)
+  if (typeof value !== 'string' || value === '') {
+    return undefined
+  }
+  try {
+    const out = compile(JSON.parse(value), LOOKS)
+    return 'look' in out ? out.look : undefined
+  } catch {
+    return undefined
+  }
 }
 
 async function putOn($: EngineInterface, look: Look): Promise<ThemeResult> {
@@ -122,8 +139,10 @@ async function checkAndPutOn($: EngineInterface, spec: unknown, save: boolean): 
     await $.store.set(CUSTOM_PREFIX + look.id, spec)
     await $.store.set(CHOICE, look.id)
     await $.store.delete(PREVIEW)
+    await $.state.set(previewing, '')
   } else {
     await $.store.set(PREVIEW, spec)
+    await $.state.set(previewing, JSON.stringify(spec))
   }
   const set = await putOn($, look)
   const refused = (set as ThemeResult & { refused?: string }).refused
@@ -197,13 +216,22 @@ export const register: Register = on => {
       isDeferred: false,
     })
     await $.tool.register({
+      name: 'look_use',
+      description:
+        "Switch to a look, built-in or saved, by id or the start of its name ('neon', 'abyssal'), or 'off' for the app's own; it stays on in later sessions, as /look does. Ends any preview.",
+      inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] },
+      isDeferred: false,
+    })
+    await $.tool.register({
       name: 'look_list',
       description: 'List every look: the built-in ones and the ones the person made, and which is on.',
       inputSchema: { type: 'object', properties: {} },
       isDeferred: false,
     })
 
-    const current = await chosen($)
+    // A reload mid-design keeps the preview on; a new session has none.
+    const preview = await previewLook($)
+    const current = preview ?? (await chosen($))
     if (current !== OFF) {
       const set = await putOn($, current)
       if (!set.isDrawn) {
@@ -242,6 +270,7 @@ export const register: Register = on => {
     }
 
     if (verb === OFF) {
+      await $.state.set(previewing, '')
       await $.store.set(CHOICE, OFF)
       await $.theme.clear()
       return text("Look off: back to the app's own.")
@@ -271,6 +300,7 @@ export const register: Register = on => {
     if (look === undefined) {
       return text(`No look called "${e.args.trim()}".\n\n${listText(builtIn, mine, current)}`)
     }
+    await $.state.set(previewing, '')
     await $.store.set(CHOICE, look.id)
     return text(onText(look, await putOn($, look)))
   })
@@ -304,6 +334,27 @@ export const register: Register = on => {
       return { result: spec === undefined ? `No saved look "${id}". Call look_list.` : JSON.stringify(spec) }
     } catch (error) {
       return { deny: `look_get failed: ${String(error)}` }
+    }
+  })
+
+  on('tool.run', { tool: 'mcp__theme-switcher__look_use' }, async ($, e) => {
+    try {
+      const query = String(e['id'] ?? '')
+      await $.state.set(previewing, '')
+      if (norm(query) === OFF) {
+        await $.store.set(CHOICE, OFF)
+        await $.theme.clear()
+        return { result: "Look off: back to the app's own." }
+      }
+      const { builtIn, mine } = await allLooks($)
+      const look = find([...builtIn, ...mine], query)
+      if (look === undefined) {
+        return { result: `No look called "${query}".\n\n${listText(builtIn, mine, await chosen($))}` }
+      }
+      await $.store.set(CHOICE, look.id)
+      return { result: onText(look, await putOn($, look)) }
+    } catch (error) {
+      return { deny: `look_use failed: ${String(error)}` }
     }
   })
 

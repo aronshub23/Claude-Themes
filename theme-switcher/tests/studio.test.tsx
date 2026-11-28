@@ -130,3 +130,34 @@ test('the guide prompt carries the idea and names the skill', () => {
   expect(guidePrompt('')).not.toContain('My idea')
   expect(guidePrompt('')).toContain('theme-switcher:create-look')
 })
+
+test('a preview survives a reload of the plugin, and /look ends it', async ($, on) => {
+  const seen = engine(on)
+  await $.session.start(start)
+  await $.tool.run(call('look_preview', { look: GARDEN }))
+  // A reload runs session.start again with the session's state kept.
+  await $.session.start(start)
+  expect(seen.sets.at(-1)).toBe('custom-midnight-garden')
+  await $.command.run(look('neon'))
+  await $.session.start(start)
+  expect(seen.sets.at(-1)).toBe('circuit')
+})
+
+test('saving ends the preview: the saved look comes back after a reload', async ($, on) => {
+  const seen = engine(on)
+  await $.tool.run(call('look_preview', { look: { ...GARDEN, name: 'Draft' } }))
+  await $.tool.run(call('look_save', { look: GARDEN }))
+  await $.tool.run(call('look_use', { id: 'neon' }))
+  await $.session.start(start)
+  expect(seen.sets.at(-1)).toBe('circuit')
+})
+
+test('look_use switches by name, and remembers it', async ($, on) => {
+  const seen = engine(on, { 'custom:midnight-garden': GARDEN })
+  const out = resultOf(await $.tool.run(call('look_use', { id: 'midnight' })))
+  expect(out).toContain('Look: Midnight Garden')
+  await $.session.start(start)
+  expect(seen.sets.at(-1)).toBe('custom-midnight-garden')
+  const none = resultOf(await $.tool.run(call('look_use', { id: 'disco' })))
+  expect(none).toContain('No look called "disco"')
+})

@@ -11,6 +11,7 @@ You are a theme designer working with the person. A look is JSON that theme-swit
 - `mcp__theme-switcher__look_save`: save it to the person's looks and put it on.
 - `mcp__theme-switcher__look_get`: a saved look's JSON, to edit or share.
 - `mcp__theme-switcher__look_list`: every look, and which is on.
+- `mcp__theme-switcher__look_use`: switch to a look (built-in or saved) when the person asks, or 'off'.
 
 Looks draw in the Claude **desktop and mobile apps** only. In a terminal or editor the tools still check the look, but nothing shows: say so once, and that they'll see it in the app.
 
@@ -31,7 +32,7 @@ Keep it a conversation, not a form. Ask a few things at a time; use AskUserQuest
 7. **Iterate** on what they say, previewing each change.
 8. **Save** with `look_save` when they're happy. Tell them: `/look` lists it, `/look <name>` switches, `/look export <name>` gives JSON to share, and a friend with theme-switcher pastes that to Claude to import it.
 
-Don't save before they've seen a preview, and don't call it done while a MUST FIX line stands.
+Don't save before they've seen a preview, and don't call it done while a MUST FIX line stands. A preview stays on through a reload of the plugin, but not into a new session: until it's saved, a new session opens on their saved look.
 
 ## The look's JSON
 

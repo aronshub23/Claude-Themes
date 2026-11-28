@@ -27,7 +27,7 @@ Or just ask Claude: "make me a new look". Claude walks you through it:
 4. **Messages**: bubble shapes, fonts and a signature detail (a stripe, rivets, tape, a glow).
 5. **Sound**: none, or a quiet ambience and cues.
 6. **Preview**: it goes on live; you look, say what to change, and it updates.
-7. **Save**: it's yours, in every session from then on.
+7. **Save**: it's yours, in every session from then on. (A preview stays on if the plugin reloads mid-design, but a new session opens on your saved look until you save.)
 
 Every look is checked before it goes on: contrast that would stop the app painting it, scene content the app refuses, a style or sound out of range. Claude fixes what the check finds before showing you.
 
@@ -64,7 +64,7 @@ To share, send the JSON from `/look export`. Your friend, with theme-switcher in
 The plugin is a Claude Code hooks module and a skill:
 
 - `/look` and the theme itself: `hooks/register.tsx`.
-- Four tools Claude calls while designing: `look_preview` (check and put on without saving), `look_save`, `look_get` and `look_list`.
+- Five tools Claude calls: `look_preview` (check and put on without saving), `look_save`, `look_get`, `look_list` and `look_use` (switch, so you can just ask Claude to change looks).
 - `skills/create-look/SKILL.md`: the guided flow, and the design rules Claude follows (palette anchors and contrast, scene rules such as no flashing and quiet middle, message style ranges, sound ranges).
 - `hooks/studio.ts`: a look's JSON format and the checks it passes.
 - Built-in looks are code in `hooks/looks/`; to add one to the plugin, write a module there and list it in `hooks/looks/index.ts`.
