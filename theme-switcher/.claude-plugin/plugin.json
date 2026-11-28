@@ -1,8 +1,18 @@
 {
   "name": "theme-switcher",
-  "version": "0.1.0",
-  "description": "Animated looks for Claude's desktop and mobile apps, switched with /look: Neon Circuit (cyberpunk) and Turbine Hall (industrial gas turbine).",
-  "author": { "name": "aronshub23" },
+  "version": "0.2.0",
+  "description": "A look studio for Claude's desktop and mobile apps: design your own animated theme with Claude's help (/look new), preview it live, save and share it, and switch looks with /look. Comes with Neon Circuit and Turbine Hall.",
+  "author": {
+    "name": "aronshub23"
+  },
   "license": "MIT",
-  "keywords": ["theme", "look", "backdrop", "cyberpunk", "industrial"]
+  "keywords": [
+    "theme",
+    "look",
+    "studio",
+    "backdrop",
+    "customization",
+    "cyberpunk",
+    "industrial"
+  ]
 }

@@ -1,27 +1,6 @@
-import { expect, mock, test } from 'claude-code/testing'
-import type { On } from 'claude-code'
+import { expect, test } from 'claude-code/testing'
 
-// The engine beneath the plugin: what each test stands in for.
-function engine(on: On, stored?: Record<string, unknown>) {
-  const sets: string[] = []
-  let cleared = 0
-  mock.store(on, stored)
-  on('command.register', (_, e) => ({ value: { command: e.name } }))
-  on('theme.set', (_, e) => {
-    sets.push(String(e.backdrop && 'scene' in e.backdrop ? e.backdrop.scene : ''))
-    return { value: { isDrawn: true, requestId: 'look' } }
-  })
-  on('theme.clear', () => {
-    cleared++
-    return { value: { isDrawn: false, reason: 'cleared', wasSet: true } as never }
-  })
-  on('session.start', (_, e) => ({ cwd: e.cwd }))
-  return { sets, cleared: () => cleared }
-}
-
-const start = { cwd: '/', surface: 'desktop', isInteractive: true } as const
-const look = (args: string) =>
-  ({ command: 'look', args, origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } }) as const
+import { engine, look, start } from './engine.js'
 
 test('a new install starts on the first look', async ($, on) => {
   const seen = engine(on)

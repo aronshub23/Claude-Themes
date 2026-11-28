@@ -7,7 +7,7 @@
     {
       "name": "theme-switcher",
       "source": "./theme-switcher",
-      "description": "Every look in one plugin, switched with /look: Neon Circuit (cyberpunk) and Turbine Hall (industrial gas turbine)."
+      "description": "A look studio: design your own animated Claude theme with Claude's help (/look new), preview it live, save, share and switch with /look. Comes with Neon Circuit and Turbine Hall."
     },
     {
       "name": "neon-circuit",
@@ -20,5 +20,5 @@
       "description": "Industrial gas-turbine look in red, white and charcoal: turning compressor and turbine rotors, a live blueprint cutaway with airflow and flame, embers and gauges."
     }
   ],
-  "description": "Animated looks for Claude's desktop and mobile apps."
+  "description": "Animated looks for Claude's desktop and mobile apps, and a studio to make your own."
 }
